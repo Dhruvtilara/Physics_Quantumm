@@ -165,15 +165,6 @@ className={`h-10 flex-1 relative flex items-center transition-all ${isOver ? 'bg
 
                 {g.short}
 
-                {/* LaTeX Matrix Tooltip */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max px-4 py-2 bg-[#08101a] border border-[#00d4ff]/30 rounded-lg shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 group-hover:opacity-100 transition-all pointer-events-none z-[100] transform scale-95 origin-bottom group-hover:scale-100 flex flex-col items-center backdrop-blur-xl">
-                  <span className="text-[9px] font-space text-[#00d4ff] uppercase tracking-[0.3em] opacity-80 mb-2">{g.label} Opr</span>
-                  <div className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] text-sm">
-                    <InlineMath math={getGateMatrixLaTeX(g.id)} />
-                  </div>
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-[5px] border-transparent border-t-[#00d4ff]/30"></div>
-                </div>
-
                 {/* Delete Button */}
                 <button
                   onClick={() => onDelete(g.instanceId, wireId)}
@@ -487,7 +478,7 @@ export default function Dashboard() {
               </div>
 
               {/* Right: Circuit Canvas Input + Insight Panel */}
-              <div className="flex-1 w-full bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] rounded-xl p-4 lg:p-5 border border-[rgba(0,180,255,0.15)] relative shadow-[0_0_20px_rgba(0,200,255,0.05)]">
+              <div className="flex-1 w-full bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] rounded-xl p-4 lg:p-5 border border-[rgba(0,180,255,0.15)] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden">
                 <div className="relative z-10 flex flex-col xl:flex-row gap-5">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
@@ -495,7 +486,7 @@ export default function Dashboard() {
                       <p className="text-xs text-on-surface-variant font-body">Assemble quantum instructions by dragging operators.</p>
                     </div>
 
-                    <div className="space-y-3 relative z-10 w-full pt-1 pb-1">
+                    <div className="space-y-3 relative z-10 w-full pt-1 pb-1 overflow-hidden">
                       <DroppableWire wireId="q0" label="q0" gates={wireMap['q0']} onDelete={handleDelete} />
                       <DroppableWire wireId="q1" label="q1" gates={wireMap['q1']} onDelete={handleDelete} />
                       <DroppableWire wireId="q2" label="q2" gates={wireMap['q2']} onDelete={handleDelete} />
