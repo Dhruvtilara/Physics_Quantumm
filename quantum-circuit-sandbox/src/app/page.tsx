@@ -155,7 +155,7 @@ className={`h-10 flex-1 relative flex items-center transition-all ${isOver ? 'bg
             return (
               <div
                 key={g.instanceId}
-                className={`relative w-12 h-12 flex items-center justify-center rounded-2xl border bg-white/5 backdrop-blur-xl text-base cursor-default group/gate transition-all ${glowStyle}`}
+                className={`relative w-12 h-12 flex items-center justify-center rounded-2xl border bg-white/5 backdrop-blur-xl text-base cursor-default group transition-all ${glowStyle}`}
               >
                 {/* Dynamically adjust line height mapping across 24px gaps and 40px blocks (64px offset per lane) */}
                 {isSpecialC && (
@@ -174,7 +174,7 @@ className={`h-10 flex-1 relative flex items-center transition-all ${isOver ? 'bg
                 {g.short}
 
                 {/* LaTeX Matrix Tooltip */}
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max px-4 py-2 bg-[#08101a] border border-[#00d4ff]/30 rounded-lg shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 group-hover/gate:opacity-100 transition-all pointer-events-none z-[100] transform scale-95 origin-bottom group-hover/gate:scale-100 flex flex-col items-center backdrop-blur-xl">
+                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-max px-4 py-2 bg-[#08101a] border border-[#00d4ff]/30 rounded-lg shadow-[0_15px_30px_rgba(0,0,0,0.8)] opacity-0 group-hover:opacity-100 transition-all pointer-events-none z-[100] transform scale-95 origin-bottom group-hover:scale-100 flex flex-col items-center backdrop-blur-xl">
                   <span className="text-[9px] font-space text-[#00d4ff] uppercase tracking-[0.3em] opacity-80 mb-2">{g.label} Opr</span>
                   <div className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.3)] text-sm">
                     <InlineMath math={getGateMatrixLaTeX(g.id)} />
@@ -185,7 +185,7 @@ className={`h-10 flex-1 relative flex items-center transition-all ${isOver ? 'bg
                 {/* Delete Button */}
                 <button
                   onClick={() => onDelete(g.instanceId, wireId)}
-                  className="absolute -top-2 -right-2 bg-error text-on-error w-4 h-4 rounded-full flex items-center justify-center opacity-0 group-hover/gate:opacity-100 transition-opacity z-50 text-[10px]"
+                  className="absolute -top-2 -right-2 bg-error text-on-error w-4 h-4 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity z-50 text-[10px]"
                 >
                   <span className="material-symbols-outlined text-[10px]">close</span>
                 </button>
@@ -442,7 +442,7 @@ export default function Dashboard() {
 
         <main className={`flex flex-[1_0_auto] pb-24 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${isHeaderExpanded ? 'opacity-100 blur-0 scale-100' : 'opacity-100 blur-0 scale-100'}`}>
           {/* SideNavBar (Left Gate Library made narrower) */}
-          <aside className="h-[calc(100vh-4.5rem)] w-52 fixed left-2 top-[4.25rem] pt-6 pb-6 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-[120] border border-[rgba(0,180,255,0.15)] rounded-xl shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-visible">
+          <aside className="h-[calc(100vh-5.5rem)] w-52 fixed left-3 top-[5rem] pt-6 pb-6 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-[120] border border-[rgba(0,180,255,0.15)] rounded-xl shadow-[0_0_20px_rgba(0,200,255,0.05)] max-h-[calc(100vh-7rem)] overflow-y-auto">
             <div className="mb-4 px-2">
               <h2 className="text-[#06b6d4] text-sm font-black font-space uppercase tracking-[3px]">Core Gates</h2>
             </div>
@@ -470,7 +470,7 @@ export default function Dashboard() {
           )}
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-56 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8">
+          <div className="flex-1 ml-60 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-4 w-full items-stretch">
@@ -554,7 +554,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="xl:w-96 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-5 backdrop-blur-[12px] h-fit">
+                  <aside className="xl:w-80 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-5 backdrop-blur-[12px] h-fit max-h-[calc(100vh-18rem)] overflow-y-auto">
                     <h3 className="text-[12px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-3">Why This Output?</h3>
                     <p className="text-[11px] text-[#b8c7e2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
                     <div className="grid grid-cols-2 gap-3 mb-4">
