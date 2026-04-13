@@ -357,7 +357,7 @@ export default function Dashboard() {
 
   return (
     <DndContext id="sandbox-dnd-context" onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="flex flex-col bg-background text-on-background min-h-screen selection:bg-primary-container/30">
+      <div className="flex flex-col bg-background text-on-background h-screen selection:bg-primary-container/30">
 
         {/* TopNavBar */}
         <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 pointer-events-none">
@@ -417,7 +417,7 @@ export default function Dashboard() {
           </div>
         </header>
 
-        <main className={`flex flex-[1_0_auto] pb-24 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] ${isHeaderExpanded ? 'opacity-40 blur-[2px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'}`}>
+        <main className={`flex flex-[1_0_auto] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] h-[calc(100vh-4rem)] ${isHeaderExpanded ? 'opacity-40 blur-[2px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'}`}>
           {/* SideNavBar (Left Gate Library made narrower) */}
           <aside className="h-full w-48 fixed left-0 top-16 pt-8 pb-8 px-4 flex flex-col bg-[#0d1f35] z-40 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
             <div className="mb-4 px-2">
@@ -432,10 +432,10 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-48 flex flex-col pt-4 px-6 lg:px-8 gap-4 w-full pr-8">
+          <div className="flex-1 ml-48 flex flex-col pt-4 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
-            <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch h-full">
+            <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch flex-1">
 
               {/* Left: Probabilities and all */}
               <div className="w-full lg:w-64 xl:w-72 bg-[#0d1f35] rounded-xl border border-[#1a3a5c] p-3 shadow-[0_0_20px_rgba(0,200,255,0.05)] shrink-0 flex flex-col justify-between">
@@ -473,8 +473,8 @@ export default function Dashboard() {
               </div>
 
               {/* Right: Circuit Canvas Input + Insight Panel */}
-              <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden h-full">
-                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start h-full">
+              <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden flex flex-col">
+                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start flex-1">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
                       <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
