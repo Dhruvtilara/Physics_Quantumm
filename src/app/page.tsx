@@ -520,22 +520,22 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="xl:w-96 shrink-0 rounded-xl border border-[#24446f] bg-[#061226]/70 p-4 backdrop-blur-xl h-full flex flex-col">
-                    <h3 className="text-[11px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-3">Why This Output?</h3>
-                    <p className="text-[10px] text-[#9db2d2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
-                    <div className="grid grid-cols-2 gap-3 mb-4">
-                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
-                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">Before</p>
-                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.before)}⟩</p>
-                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.before).toFixed(1)}%</p>
+                  <aside className="flex-1 rounded-xl border border-[#24446f] bg-[#061226]/70 p-8 backdrop-blur-xl h-full flex flex-col">
+                    <h3 className="text-[18px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-6">Why This Output?</h3>
+                    <p className="text-[14px] text-[#9db2d2] mb-6 font-mono uppercase tracking-wider">{insight.lastAction}</p>
+                    <div className="space-y-6 mb-8 flex-1">
+                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-6">
+                        <p className="text-[13px] text-[#7ea8da] uppercase tracking-wider mb-3">Before</p>
+                        <p className="text-[32px] text-[#dbeaff] font-mono font-bold">|{getDominantState(insight.before)}⟩</p>
+                        <p className="text-[16px] text-[#8aa3c5] mt-3">{Math.max(...insight.before).toFixed(1)}%</p>
                       </div>
-                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
-                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">After</p>
-                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.after)}⟩</p>
-                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.after).toFixed(1)}%</p>
+                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-6">
+                        <p className="text-[13px] text-[#7ea8da] uppercase tracking-wider mb-3">After</p>
+                        <p className="text-[32px] text-[#dbeaff] font-mono font-bold">|{getDominantState(insight.after)}⟩</p>
+                        <p className="text-[16px] text-[#8aa3c5] mt-3">{Math.max(...insight.after).toFixed(1)}%</p>
                       </div>
                     </div>
-                    <p className="text-[11px] leading-relaxed text-[#d1def2] flex-1">{insight.reason}</p>
+                    <p className="text-[14px] leading-relaxed text-[#d1def2] flex-1">{insight.reason}</p>
                   </aside>
                 </div>
 
