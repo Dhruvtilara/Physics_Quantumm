@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background: #050810;
+  --color-surface: #0c1426;
+  --color-surface-container-low: #0d1f35;
+  --color-surface-container-highest: #0d1f35;
+  --color-surface-container-high: #122136;
+  --color-surface-container-lowest: #081020;
+  --color-primary: #00d4ff;
+  --color-primary-container: #00d4ff;
+  --color-secondary: #7c3aed;
+  --color-secondary-container: #7c3aed;
+  --color-on-surface: #e2e8f0;
+  --color-on-surface-variant: #64748b;
+  --color-outline-variant: #1a3a5c;
+  --color-on-primary-fixed: #001f24;
+  --color-on-secondary-container: #f3e7ff;
+  --font-display: var(--font-space-grotesk), sans-serif;
+  --font-body: var(--font-inter), sans-serif;
+  --font-mono: var(--font-roboto-mono), monospace;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  background-image: linear-gradient(180deg, #050810 0%, #0c1426 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--color-on-surface);
+  font-family: var(--font-body);
 }
