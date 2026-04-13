@@ -435,7 +435,7 @@ export default function Dashboard() {
           <div className="flex-1 ml-48 flex flex-col pt-4 px-6 lg:px-8 gap-4 w-full pr-8">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
-            <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch">
+            <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch h-full">
 
               {/* Left: Probabilities and all */}
               <div className="w-full lg:w-64 xl:w-72 bg-[#0d1f35] rounded-xl border border-[#1a3a5c] p-3 shadow-[0_0_20px_rgba(0,200,255,0.05)] shrink-0 flex flex-col justify-between">
@@ -473,8 +473,8 @@ export default function Dashboard() {
               </div>
 
               {/* Right: Circuit Canvas Input + Insight Panel */}
-              <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden">
-                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start">
+              <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden h-full">
+                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start h-full">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
                       <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
