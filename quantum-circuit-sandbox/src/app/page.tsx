@@ -479,7 +479,7 @@ export default function Dashboard() {
 
               {/* Right: Circuit Canvas Input + Insight Panel */}
               <div className="flex-1 w-full bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] rounded-xl p-4 lg:p-5 border border-[rgba(0,180,255,0.15)] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden">
-                <div className="relative z-10 flex flex-col xl:flex-row gap-5">
+                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
                       <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
@@ -521,7 +521,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="xl:w-80 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-5 backdrop-blur-[12px] h-fit max-h-[calc(100vh-18rem)] overflow-y-auto">
+                  <aside className="xl:w-96 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-5 backdrop-blur-[12px] h-full flex flex-col overflow-y-auto">
                     <h3 className="text-[12px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-3">Why This Output?</h3>
                     <p className="text-[11px] text-[#b8c7e2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -553,7 +553,7 @@ export default function Dashboard() {
                         })}
                       </div>
                     </div>
-                    <p className="text-[12px] leading-relaxed text-[#d1def2]">{insight.reason}</p>
+                    <p className="text-[12px] leading-relaxed text-[#d1def2] flex-1">{insight.reason}</p>
                   </aside>
                 </div>
 

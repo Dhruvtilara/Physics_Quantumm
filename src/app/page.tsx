@@ -474,7 +474,7 @@ export default function Dashboard() {
 
               {/* Right: Circuit Canvas Input + Insight Panel */}
               <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-hidden">
-                <div className="relative z-10 flex flex-col xl:flex-row gap-5">
+                <div className="relative z-10 flex flex-col xl:flex-row gap-5 items-start">
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
                       <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
@@ -520,7 +520,7 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="xl:w-80 shrink-0 rounded-xl border border-[#24446f] bg-[#061226]/70 p-4 backdrop-blur-xl h-fit">
+                  <aside className="xl:w-96 shrink-0 rounded-xl border border-[#24446f] bg-[#061226]/70 p-4 backdrop-blur-xl h-full flex flex-col">
                     <h3 className="text-[11px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-3">Why This Output?</h3>
                     <p className="text-[10px] text-[#9db2d2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
                     <div className="grid grid-cols-2 gap-3 mb-4">
@@ -535,7 +535,7 @@ export default function Dashboard() {
                         <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.after).toFixed(1)}%</p>
                       </div>
                     </div>
-                    <p className="text-[11px] leading-relaxed text-[#d1def2]">{insight.reason}</p>
+                    <p className="text-[11px] leading-relaxed text-[#d1def2] flex-1">{insight.reason}</p>
                   </aside>
                 </div>
 
