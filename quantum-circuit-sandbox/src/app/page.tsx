@@ -442,7 +442,7 @@ export default function Dashboard() {
 
         <main className={`flex flex-[1_0_auto] pb-24 transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${isHeaderExpanded ? 'opacity-100 blur-0 scale-100' : 'opacity-100 blur-0 scale-100'}`}>
           {/* SideNavBar (Left Gate Library made narrower) */}
-          <aside className="h-full w-48 fixed left-0 top-16 pt-8 pb-8 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-[120] border-r border-[rgba(0,180,255,0.15)] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-visible">
+          <aside className="h-[calc(100vh-4.5rem)] w-52 fixed left-2 top-[4.25rem] pt-6 pb-6 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-[120] border border-[rgba(0,180,255,0.15)] rounded-xl shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-visible">
             <div className="mb-4 px-2">
               <h2 className="text-[#06b6d4] text-sm font-black font-space uppercase tracking-[3px]">Core Gates</h2>
             </div>
@@ -458,8 +458,8 @@ export default function Dashboard() {
             <div
               className="fixed w-64 rounded-xl border border-[rgba(0,180,255,0.25)] bg-[rgba(10,25,50,0.95)] p-3 shadow-[0_16px_30px_rgba(0,0,0,0.65)] backdrop-blur-xl pointer-events-none z-[500]"
               style={{
-                left: hoveredGate.rect.right + 12,
-                top: hoveredGate.rect.top + hoveredGate.rect.height / 2,
+                left: Math.min(hoveredGate.rect.right + 12, window.innerWidth - 280),
+                top: Math.max(96, Math.min(hoveredGate.rect.top + hoveredGate.rect.height / 2, window.innerHeight - 120)),
                 transform: "translateY(-50%)",
               }}
             >
@@ -470,7 +470,7 @@ export default function Dashboard() {
           )}
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-48 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8">
+          <div className="flex-1 ml-56 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-4 w-full items-stretch">
@@ -554,29 +554,29 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="xl:w-80 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-4 backdrop-blur-[12px] h-fit">
-                    <h3 className="text-[11px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-3">Why This Output?</h3>
-                    <p className="text-[10px] text-[#9db2d2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
+                  <aside className="xl:w-96 shrink-0 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-5 backdrop-blur-[12px] h-fit">
+                    <h3 className="text-[12px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-3">Why This Output?</h3>
+                    <p className="text-[11px] text-[#b8c7e2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
                     <div className="grid grid-cols-2 gap-3 mb-4">
                       <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
-                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">Before</p>
-                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.before)}⟩</p>
-                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.before).toFixed(1)}%</p>
+                        <p className="text-[10px] text-[#7ea8da] uppercase tracking-wider mb-1">Before</p>
+                        <p className="text-[13px] text-[#dbeaff] font-mono">|{getDominantState(insight.before)}⟩</p>
+                        <p className="text-[11px] text-[#8aa3c5] mt-1">{Math.max(...insight.before).toFixed(1)}%</p>
                       </div>
                       <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
-                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">After</p>
-                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.after)}⟩</p>
-                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.after).toFixed(1)}%</p>
+                        <p className="text-[10px] text-[#7ea8da] uppercase tracking-wider mb-1">After</p>
+                        <p className="text-[13px] text-[#dbeaff] font-mono">|{getDominantState(insight.after)}⟩</p>
+                        <p className="text-[11px] text-[#8aa3c5] mt-1">{Math.max(...insight.after).toFixed(1)}%</p>
                       </div>
                     </div>
                     <div className="mb-4 rounded-lg border border-[#24446f] bg-[#09172c] p-2.5">
-                      <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-2">Largest Changes</p>
+                      <p className="text-[10px] text-[#7ea8da] uppercase tracking-wider mb-2">Largest Changes</p>
                       <div className="space-y-1.5">
                         {getTopProbabilityShifts(insight.before, insight.after).map((shift) => {
                           const basis = shift.idx.toString(2).padStart(3, "0");
                           const sign = shift.delta >= 0 ? "+" : "";
                           return (
-                            <div key={basis} className="flex items-center justify-between text-[10px] font-mono">
+                            <div key={basis} className="flex items-center justify-between text-[11px] font-mono">
                               <span className="text-[#d1def2]">|{basis}⟩</span>
                               <span className={shift.delta >= 0 ? "text-[#6ee7b7]" : "text-[#fca5a5]"}>
                                 {sign}{shift.delta.toFixed(1)}%
@@ -586,7 +586,7 @@ export default function Dashboard() {
                         })}
                       </div>
                     </div>
-                    <p className="text-[11px] leading-relaxed text-[#d1def2]">{insight.reason}</p>
+                    <p className="text-[12px] leading-relaxed text-[#d1def2]">{insight.reason}</p>
                   </aside>
                 </div>
 
