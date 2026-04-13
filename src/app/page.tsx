@@ -22,6 +22,55 @@ const availableGates: GateTemplate[] = [
   { id: "cnot", label: "CNOT", icon: "mediation", short: "C", isControl: true },
 ];
 
+const gateTheoryById: Record<string, { basics: string; action: string }> = {
+  "pauli-x": {
+    basics: "Bit-flip gate. It swaps |0⟩ and |1⟩.",
+    action: "Acts like a quantum NOT on the selected qubit.",
+  },
+  "pauli-y": {
+    basics: "Bit and phase flip gate with complex amplitudes.",
+    action: "Rotates the state around the Y-axis by pi on the Bloch sphere.",
+  },
+  "pauli-z": {
+    basics: "Phase-flip gate. It keeps basis-state probabilities unchanged.",
+    action: "Adds a minus phase to the |1⟩ component.",
+  },
+  hadamard: {
+    basics: "Creates or removes superposition.",
+    action: "Maps basis states into equal-weight combinations and enables interference.",
+  },
+  cnot: {
+    basics: "Two-qubit controlled NOT operation.",
+    action: "Flips a target qubit only when the control qubit is |1⟩.",
+  },
+};
+
+const getDominantState = (probs: number[]) => {
+  let maxIdx = 0;
+  for (let i = 1; i < probs.length; i++) {
+    if (probs[i] > probs[maxIdx]) maxIdx = i;
+  }
+  return maxIdx.toString(2).padStart(3, "0");
+};
+
+const getOutputReason = (gateId: string, wireId: string) => {
+  const qubit = wireId.toUpperCase();
+  switch (gateId) {
+    case "pauli-x":
+      return `X on ${qubit} swaps amplitudes with ${qubit}=0 and ${qubit}=1, changing output probabilities.`;
+    case "pauli-y":
+      return `Y on ${qubit} flips the qubit and adds a phase shift, so interference and outputs both change.`;
+    case "pauli-z":
+      return `Z on ${qubit} mainly changes phase, so the output changes through interference in later gates.`;
+    case "hadamard":
+      return `H on ${qubit} spreads amplitude across 0 and 1, producing superposition and interference.`;
+    case "cnot":
+      return `CNOT links two qubits conditionally, and this correlation can shift probability toward entangled outcomes.`;
+    default:
+      return "Gate application changed the amplitude distribution, which changed the output profile.";
+  }
+};
+
 const getGateMatrixLaTeX = (gateId: string) => {
   switch (gateId) {
     case 'pauli-x': return "\\begin{pmatrix} 0 & 1 \\\\ 1 & 0 \\end{pmatrix}";
@@ -51,12 +100,14 @@ function DraggableGate({ gate }: { gate: GateTemplate }) {
           ? 'text-[#d8fdff] bg-[#08161b]/80 border-[#00d4ff]/25 shadow-[0_0_14px_rgba(0,212,255,0.35)] group-hover:border-[#00d4ff]/40 group-hover:shadow-[0_0_26px_rgba(0,212,255,0.45)]'
           : 'text-[#e5d4ff] bg-[#141025]/80 border-[#7c3aed]/25 shadow-[0_0_14px_rgba(124,58,237,0.28)] group-hover:border-[#7c3aed]/40 group-hover:shadow-[0_0_26px_rgba(124,58,237,0.45)]';
 
+  const gateTheory = gateTheoryById[gate.id];
+
   return (
     <div
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`w-full flex items-center gap-3 px-3 py-2 rounded-3xl bg-[#1a2744] border border-[#2a4070] shadow-[0_0_20px_rgba(0,200,255,0.05)] backdrop-blur-xl group font-space font-bold cursor-grab active:cursor-grabbing transition-all ${
+      className={`w-full flex items-center gap-3 px-3 py-2 rounded-3xl bg-[#1a2744] border border-[#2a4070] shadow-[0_0_20px_rgba(0,200,255,0.05)] backdrop-blur-xl group font-space font-bold cursor-grab active:cursor-grabbing transition-all relative ${
         isDragging ? 'opacity-30' : 'hover:bg-[#1f2f56]'
       }`}
     >
@@ -64,6 +115,13 @@ function DraggableGate({ gate }: { gate: GateTemplate }) {
         {gate.short}
       </div>
       <span className="text-[10px] font-medium uppercase tracking-widest text-[#e2e8f0]/80 group-hover:text-[#e2e8f0] transition-colors">{gate.label}</span>
+      {gateTheory && (
+        <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-[#00d4ff]/25 bg-[#071226]/95 p-3 shadow-[0_16px_30px_rgba(0,0,0,0.65)] backdrop-blur-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-[120]">
+          <p className="text-[9px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-1">Gate Basics</p>
+          <p className="text-[11px] text-[#d8e6ff] leading-relaxed">{gateTheory.basics}</p>
+          <p className="text-[10px] text-[#93a4c4] leading-relaxed mt-2">{gateTheory.action}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -157,6 +215,12 @@ export default function Dashboard() {
       {x: 0, y: 0, z: 1}
     ],
     status: 'Ready', telemetry: 'Initial state |000⟩ detected. System stable.', isExecuting: false
+  });
+  const [insight, setInsight] = useState({
+    before: [100, 0, 0, 0, 0, 0, 0, 0] as number[],
+    after: [100, 0, 0, 0, 0, 0, 0, 0] as number[],
+    reason: "Place a gate to see before/after output and a short explanation.",
+    lastAction: "Waiting for circuit update",
   });
 
   const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
@@ -266,21 +330,45 @@ export default function Dashboard() {
 
     const gateData = active.data.current?.gate as GateTemplate;
     if (gateData) {
+      const before = calculateState(wireMap).probs;
       const newMap = { ...wireMap, [over.id]: [...wireMap[over.id], { ...gateData, instanceId: `${gateData.id}-${Date.now()}` }] };
       setWireMap(newMap);
       updateSim(newMap);
+      const after = calculateState(newMap).probs;
+      setInsight({
+        before,
+        after,
+        reason: getOutputReason(gateData.id, over.id as string),
+        lastAction: `${gateData.label} placed on ${(over.id as string).toUpperCase()}`,
+      });
     }
   };
 
   const handleDelete = (instanceId: string, wireId: string) => {
+    const before = calculateState(wireMap).probs;
+    const removedGate = wireMap[wireId].find(g => g.instanceId === instanceId);
     const newMap = { ...wireMap, [wireId]: wireMap[wireId].filter(g => g.instanceId !== instanceId) };
     setWireMap(newMap);
     updateSim(newMap);
+    const after = calculateState(newMap).probs;
+    setInsight({
+      before,
+      after,
+      reason: "Removing this gate changed interference pathways, so output probabilities rebalanced.",
+      lastAction: `${removedGate?.label ?? "Gate"} removed from ${wireId.toUpperCase()}`,
+    });
   };
 
   const handleClearCircuit = () => {
+    const before = calculateState(wireMap).probs;
     clearCircuit();
     updateSim({ q0: [], q1: [], q2: [] });
+    setInsight({
+      before,
+      after: [100, 0, 0, 0, 0, 0, 0, 0],
+      reason: "Without gates, the register returns to the initial state |000⟩.",
+      lastAction: "Circuit cleared",
+    });
   };
 
   if (!isMounted) return <div className="min-h-screen bg-background"></div>;
@@ -402,57 +490,73 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Right: Circuit Canvas Input (Compacted) */}
+              {/* Right: Circuit Canvas Input + Insight Panel */}
               <div className="flex-1 w-full bg-[#0d1f35] rounded-xl p-4 lg:p-6 border border-[#1a3a5c] relative shadow-[0_0_20px_rgba(0,200,255,0.05)]">
-                <div className="mb-3 border-b border-white/5 pb-2">
-                  <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
-                  <p className="text-xs text-on-surface-variant font-body">Assemble quantum instructions by dragging operators.</p>
-                </div>
-
-                <div className="space-y-3 relative z-10 w-full pt-1 pb-1">
-                  <style>{`
-                    @keyframes snapIn { from { transform: scale(1.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-                    .gate-placed { animation: snapIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-                  `}</style>
-                  <DroppableWire wireId="q0" label="q0" gates={wireMap['q0']} onDelete={handleDelete} />
-                  <DroppableWire wireId="q1" label="q1" gates={wireMap['q1']} onDelete={handleDelete} />
-                  <DroppableWire wireId="q2" label="q2" gates={wireMap['q2']} onDelete={handleDelete} />
-                </div>
-
-                {/* Input Controls Section - Compact */}
-                <div className="mt-10 border-t border-white/5 pt-4">
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {/* Qubit Count */}
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Qubits</label>
-                      <input type="number" min="1" max="5" defaultValue="3" className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 focus:border-primary/50 outline-none" disabled />
+                <div className="relative z-10 flex flex-col xl:flex-row gap-5">
+                  <div className="flex-1 min-w-0">
+                    <div className="mb-3 border-b border-white/5 pb-2">
+                      <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
+                      <p className="text-xs text-on-surface-variant font-body">Assemble quantum instructions by dragging operators.</p>
                     </div>
 
-                    {/* Circuit Depth */}
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Depth</label>
-                      <input type="text" value={Math.max(wireMap.q0.length, wireMap.q1.length, wireMap.q2.length)} className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 outline-none" disabled />
+                    <div className="space-y-3 relative z-10 w-full pt-1 pb-1">
+                      <style>{`
+                        @keyframes snapIn { from { transform: scale(1.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+                        .gate-placed { animation: snapIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+                      `}</style>
+                      <DroppableWire wireId="q0" label="q0" gates={wireMap['q0']} onDelete={handleDelete} />
+                      <DroppableWire wireId="q1" label="q1" gates={wireMap['q1']} onDelete={handleDelete} />
+                      <DroppableWire wireId="q2" label="q2" gates={wireMap['q2']} onDelete={handleDelete} />
                     </div>
 
-                    {/* Total Gates */}
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Gates</label>
-                      <input type="text" value={Object.values(wireMap).flat().length} className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 outline-none" disabled />
-                    </div>
+                    <div className="mt-10 border-t border-white/5 pt-4">
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div className="flex flex-col gap-1">
+                          <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Qubits</label>
+                          <input type="number" min="1" max="5" defaultValue="3" className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 focus:border-primary/50 outline-none" disabled />
+                        </div>
 
-                    {/* Measurement Basis */}
-                    <div className="flex flex-col gap-1">
-                      <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Basis</label>
-                      <select className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 focus:border-primary/50 outline-none cursor-pointer">
-                        <option>Computational</option>
-                        <option>Hadamard</option>
-                        <option>X-basis</option>
-                      </select>
+                        <div className="flex flex-col gap-1">
+                          <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Depth</label>
+                          <input type="text" value={Math.max(wireMap.q0.length, wireMap.q1.length, wireMap.q2.length)} className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 outline-none" disabled />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Gates</label>
+                          <input type="text" value={Object.values(wireMap).flat().length} className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 outline-none" disabled />
+                        </div>
+
+                        <div className="flex flex-col gap-1">
+                          <label className="text-[9px] font-space text-primary/70 uppercase tracking-wider">Basis</label>
+                          <select className="bg-surface-container-highest text-primary text-xs px-2 py-1 rounded border border-outline-variant/30 focus:border-primary/50 outline-none cursor-pointer">
+                            <option>Computational</option>
+                            <option>Hadamard</option>
+                            <option>X-basis</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
+
+                  <aside className="xl:w-80 shrink-0 rounded-xl border border-[#24446f] bg-[#061226]/70 p-4 backdrop-blur-xl h-fit">
+                    <h3 className="text-[11px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-3">Why This Output?</h3>
+                    <p className="text-[10px] text-[#9db2d2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
+                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">Before</p>
+                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.before)}⟩</p>
+                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.before).toFixed(1)}%</p>
+                      </div>
+                      <div className="rounded-lg border border-[#24446f] bg-[#09172c] p-2">
+                        <p className="text-[9px] text-[#7ea8da] uppercase tracking-wider mb-1">After</p>
+                        <p className="text-[12px] text-[#dbeaff] font-mono">|{getDominantState(insight.after)}⟩</p>
+                        <p className="text-[10px] text-[#8aa3c5] mt-1">{Math.max(...insight.after).toFixed(1)}%</p>
+                      </div>
+                    </div>
+                    <p className="text-[11px] leading-relaxed text-[#d1def2]">{insight.reason}</p>
+                  </aside>
                 </div>
 
-                {/* Subtle Grid Background */}
                 <div className="absolute inset-0 pointer-events-none opacity-[0.03] rounded-xl" style={{ backgroundImage: "radial-gradient(#00d4ff 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
               </div>
 
