@@ -100,8 +100,6 @@ function DraggableGate({ gate }: { gate: GateTemplate }) {
           ? 'text-[#d8fdff] bg-[#08161b]/80 border-[#00d4ff]/25 shadow-[0_0_14px_rgba(0,212,255,0.35)] group-hover:border-[#00d4ff]/40 group-hover:shadow-[0_0_26px_rgba(0,212,255,0.45)]'
           : 'text-[#e5d4ff] bg-[#141025]/80 border-[#7c3aed]/25 shadow-[0_0_14px_rgba(124,58,237,0.28)] group-hover:border-[#7c3aed]/40 group-hover:shadow-[0_0_26px_rgba(124,58,237,0.45)]';
 
-  const gateTheory = gateTheoryById[gate.id];
-
   return (
     <div
       ref={setNodeRef}
@@ -115,13 +113,6 @@ function DraggableGate({ gate }: { gate: GateTemplate }) {
         {gate.short}
       </div>
       <span className="text-[10px] font-medium uppercase tracking-widest text-[#e2e8f0]/80 group-hover:text-[#e2e8f0] transition-colors">{gate.label}</span>
-      {gateTheory && (
-        <div className="absolute left-0 top-full mt-2 w-64 rounded-xl border border-[#00d4ff]/25 bg-[#071226]/95 p-3 shadow-[0_16px_30px_rgba(0,0,0,0.65)] backdrop-blur-xl opacity-0 group-hover:opacity-100 pointer-events-none transition-all z-[120]">
-          <p className="text-[9px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-1">Gate Basics</p>
-          <p className="text-[11px] text-[#d8e6ff] leading-relaxed">{gateTheory.basics}</p>
-          <p className="text-[10px] text-[#93a4c4] leading-relaxed mt-2">{gateTheory.action}</p>
-        </div>
-      )}
     </div>
   );
 }

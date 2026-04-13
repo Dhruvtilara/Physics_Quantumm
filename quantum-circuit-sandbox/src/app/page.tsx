@@ -96,13 +96,7 @@ const getGateMatrixLaTeX = (gateId: string) => {
 
 // --- Components ---
 
-function DraggableGate({
-  gate,
-  onHoverChange,
-}: {
-  gate: GateTemplate;
-  onHoverChange: (payload: { gate: GateTemplate; rect: DOMRect } | null) => void;
-}) {
+function DraggableGate({ gate }: { gate: GateTemplate }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `template-${gate.id}`,
     data: { gate },
@@ -113,8 +107,6 @@ function DraggableGate({
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      onMouseEnter={(event) => onHoverChange({ gate, rect: event.currentTarget.getBoundingClientRect() })}
-      onMouseLeave={() => onHoverChange(null)}
       className={`w-full flex items-center gap-3 px-3 py-2 rounded-3xl border border-[rgba(99,102,241,0.5)] bg-[rgba(99,102,241,0.15)] group font-space font-bold cursor-grab active:cursor-grabbing transition-all relative ${
         isDragging ? 'opacity-40' : 'hover:shadow-[0_0_12px_rgba(99,102,241,0.6)]'
       }`}
@@ -225,7 +217,6 @@ export default function Dashboard() {
   });
 
   const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
-  const [hoveredGate, setHoveredGate] = useState<{ gate: GateTemplate; rect: DOMRect } | null>(null);
   
   useEffect(() => {
     setIsMounted(true);
@@ -449,25 +440,10 @@ export default function Dashboard() {
 
             <div className="space-y-1 overflow-visible">
               {availableGates.map(gate => (
-                <DraggableGate key={gate.id} gate={gate} onHoverChange={setHoveredGate} />
+                <DraggableGate key={gate.id} gate={gate} />
               ))}
             </div>
           </aside>
-
-          {hoveredGate && gateTheoryById[hoveredGate.gate.id] && (
-            <div
-              className="fixed w-64 rounded-xl border border-[rgba(0,180,255,0.25)] bg-[rgba(10,25,50,0.95)] p-3 shadow-[0_16px_30px_rgba(0,0,0,0.65)] backdrop-blur-xl pointer-events-none z-[500]"
-              style={{
-                left: Math.min(hoveredGate.rect.right + 12, window.innerWidth - 280),
-                top: Math.max(96, Math.min(hoveredGate.rect.top + hoveredGate.rect.height / 2, window.innerHeight - 120)),
-                transform: "translateY(-50%)",
-              }}
-            >
-              <p className="text-[9px] font-space uppercase tracking-[0.2em] text-[#06b6d4] mb-1">Gate Basics</p>
-              <p className="text-[11px] text-[#d8e6ff] leading-relaxed">{gateTheoryById[hoveredGate.gate.id].basics}</p>
-              <p className="text-[10px] text-[#93a4c4] leading-relaxed mt-2">{gateTheoryById[hoveredGate.gate.id].action}</p>
-            </div>
-          )}
 
           {/* Central Content Area (Allowing Scrolling) */}
           <div className="flex-1 ml-60 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8">
