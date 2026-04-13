@@ -521,29 +521,29 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="flex-1 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-8 backdrop-blur-[12px] h-full flex flex-col overflow-y-auto">
-                    <h3 className="text-[24px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-8 font-bold">Why This Output?</h3>
-                    <p className="text-[16px] text-[#b8c7e2] mb-8 font-mono uppercase tracking-wider font-bold">{insight.lastAction}</p>
-                    <div className="w-full space-y-8 mb-8">
-                      <div className="rounded-lg border-2 border-[#06b6d4] bg-[#09172c] p-8 w-full">
-                        <p className="text-[16px] text-[#06b6d4] uppercase tracking-widest font-bold mb-4">Before</p>
-                        <p className="text-[56px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.before)}⟩</p>
-                        <p className="text-[20px] text-[#8aa3c5] mt-4 font-bold">{Math.max(...insight.before).toFixed(1)}%</p>
+                  <aside className="flex-1 rounded-xl border border-[rgba(139,92,246,0.3)] bg-[rgba(10,25,50,0.7)] p-4 backdrop-blur-[12px] h-full flex flex-col overflow-y-auto">
+                    <h3 className="text-[20px] font-space uppercase tracking-[3px] text-[#a78bfa] mb-3 font-bold">Why This Output?</h3>
+                    <p className="text-[14px] text-[#b8c7e2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
+                    <div className="w-full space-y-3 mb-3">
+                      <div className="rounded-lg border border-[#06b6d4] bg-[#09172c] p-3 w-full">
+                        <p className="text-[12px] text-[#06b6d4] uppercase tracking-widest font-bold mb-2">Before</p>
+                        <p className="text-[40px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.before)}⟩</p>
+                        <p className="text-[14px] text-[#8aa3c5] mt-2 font-bold">{Math.max(...insight.before).toFixed(1)}%</p>
                       </div>
-                      <div className="rounded-lg border-2 border-[#06b6d4] bg-[#09172c] p-8 w-full">
-                        <p className="text-[16px] text-[#06b6d4] uppercase tracking-widest font-bold mb-4">After</p>
-                        <p className="text-[56px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.after)}⟩</p>
-                        <p className="text-[20px] text-[#8aa3c5] mt-4 font-bold">{Math.max(...insight.after).toFixed(1)}%</p>
+                      <div className="rounded-lg border border-[#06b6d4] bg-[#09172c] p-3 w-full">
+                        <p className="text-[12px] text-[#06b6d4] uppercase tracking-widest font-bold mb-2">After</p>
+                        <p className="text-[40px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.after)}⟩</p>
+                        <p className="text-[14px] text-[#8aa3c5] mt-2 font-bold">{Math.max(...insight.after).toFixed(1)}%</p>
                       </div>
                     </div>
-                    <div className="mb-8 rounded-lg border-2 border-[#6366f1] bg-[#09172c] p-6">
-                      <p className="text-[16px] text-[#6366f1] uppercase tracking-widest font-bold mb-4">Largest Changes</p>
-                      <div className="space-y-4">
+                    <div className="mb-3 rounded-lg border border-[#6366f1] bg-[#09172c] p-3">
+                      <p className="text-[12px] text-[#6366f1] uppercase tracking-widest font-bold mb-2">Largest Changes</p>
+                      <div className="space-y-2">
                         {getTopProbabilityShifts(insight.before, insight.after).map((shift) => {
                           const basis = shift.idx.toString(2).padStart(3, "0");
                           const sign = shift.delta >= 0 ? "+" : "";
                           return (
-                            <div key={basis} className="flex items-center justify-between text-[16px] font-mono font-bold">
+                            <div key={basis} className="flex items-center justify-between text-[12px] font-mono font-bold">
                               <span className="text-[#d1def2]">|{basis}⟩</span>
                               <span className={shift.delta >= 0 ? "text-[#6ee7b7]" : "text-[#fca5a5]"}>
                                 {sign}{shift.delta.toFixed(1)}%
@@ -553,7 +553,7 @@ export default function Dashboard() {
                         })}
                       </div>
                     </div>
-                    <p className="text-[16px] leading-relaxed text-[#d1def2] flex-1 font-semibold">{insight.reason}</p>
+                    <p className="text-[13px] leading-tight text-[#d1def2] flex-1 font-semibold">{insight.reason}</p>
                   </aside>
                 </div>
 

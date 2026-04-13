@@ -520,22 +520,22 @@ export default function Dashboard() {
                     </div>
                   </div>
 
-                  <aside className="flex-1 rounded-xl border border-[#24446f] bg-[#061226]/70 p-8 backdrop-blur-xl h-full flex flex-col">
-                    <h3 className="text-[24px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-8 font-bold">Why This Output?</h3>
-                    <p className="text-[16px] text-[#9db2d2] mb-8 font-mono uppercase tracking-wider font-bold">{insight.lastAction}</p>
-                    <div className="w-full space-y-8 mb-8 flex-1">
-                      <div className="rounded-lg border-2 border-[#00d4ff] bg-[#09172c] p-8 w-full">
-                        <p className="text-[16px] text-[#00d4ff] uppercase tracking-widest font-bold mb-4">Before</p>
-                        <p className="text-[56px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.before)}⟩</p>
-                        <p className="text-[20px] text-[#8aa3c5] mt-4 font-bold">{Math.max(...insight.before).toFixed(1)}%</p>
+                  <aside className="flex-1 rounded-xl border border-[#24446f] bg-[#061226]/70 p-4 backdrop-blur-xl h-full flex flex-col">
+                    <h3 className="text-[20px] font-space uppercase tracking-[0.2em] text-[#00d4ff] mb-3 font-bold">Why This Output?</h3>
+                    <p className="text-[14px] text-[#9db2d2] mb-3 font-mono uppercase tracking-wider">{insight.lastAction}</p>
+                    <div className="w-full space-y-3 mb-3 flex-1">
+                      <div className="rounded-lg border border-[#00d4ff] bg-[#09172c] p-3 w-full">
+                        <p className="text-[12px] text-[#00d4ff] uppercase tracking-widest font-bold mb-2">Before</p>
+                        <p className="text-[40px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.before)}⟩</p>
+                        <p className="text-[14px] text-[#8aa3c5] mt-2 font-bold">{Math.max(...insight.before).toFixed(1)}%</p>
                       </div>
-                      <div className="rounded-lg border-2 border-[#00d4ff] bg-[#09172c] p-8 w-full">
-                        <p className="text-[16px] text-[#00d4ff] uppercase tracking-widest font-bold mb-4">After</p>
-                        <p className="text-[56px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.after)}⟩</p>
-                        <p className="text-[20px] text-[#8aa3c5] mt-4 font-bold">{Math.max(...insight.after).toFixed(1)}%</p>
+                      <div className="rounded-lg border border-[#00d4ff] bg-[#09172c] p-3 w-full">
+                        <p className="text-[12px] text-[#00d4ff] uppercase tracking-widest font-bold mb-2">After</p>
+                        <p className="text-[40px] text-[#dbeaff] font-mono font-bold leading-tight">|{getDominantState(insight.after)}⟩</p>
+                        <p className="text-[14px] text-[#8aa3c5] mt-2 font-bold">{Math.max(...insight.after).toFixed(1)}%</p>
                       </div>
                     </div>
-                    <p className="text-[16px] leading-relaxed text-[#d1def2] flex-1 font-semibold">{insight.reason}</p>
+                    <p className="text-[13px] leading-tight text-[#d1def2] flex-1 font-semibold overflow-y-auto">{insight.reason}</p>
                   </aside>
                 </div>
 
