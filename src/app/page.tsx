@@ -361,13 +361,13 @@ export default function Dashboard() {
 
         {/* TopNavBar */}
         <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 pointer-events-none">
-          <div className="flex items-center gap-2 w-48 pointer-events-auto">
+          <div className="flex items-center gap-2 w-auto min-w-[14rem] pointer-events-auto">
             <button
               onMouseEnter={() => setIsHeaderExpanded(true)}
               onMouseLeave={() => setIsHeaderExpanded(false)}
-              className="text-sm font-bold font-space uppercase tracking-[0.3em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors"
+              className="text-xs sm:text-sm font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap"
             >
-              Quantum Circuit Sandbox
+              QUANTUM CIRCUIT SANDBOX
             </button>
           </div>
           <nav className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2 pointer-events-auto">
