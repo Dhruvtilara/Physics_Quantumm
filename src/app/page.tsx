@@ -112,7 +112,7 @@ function DraggableGate({ gate }: { gate: GateTemplate }) {
       <div className={`w-8 h-8 flex items-center justify-center rounded-2xl border border-[#2a4070] text-[#00d4ff] text-base transition-all ${gateStyle}`}>
         {gate.short}
       </div>
-      <span className="text-[10px] font-medium uppercase tracking-widest text-[#e2e8f0]/80 group-hover:text-[#e2e8f0] transition-colors">{gate.label}</span>
+      <span className="text-[11px] font-medium uppercase tracking-widest text-[#e2e8f0]/80 group-hover:text-[#e2e8f0] transition-colors">{gate.label}</span>
     </div>
   );
 }
@@ -365,14 +365,14 @@ export default function Dashboard() {
             <button
               onMouseEnter={() => setIsHeaderExpanded(true)}
               onMouseLeave={() => setIsHeaderExpanded(false)}
-              className="text-xs sm:text-sm font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap"
+              className="text-sm sm:text-base font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap"
             >
               QUANTUM CIRCUIT SANDBOX
             </button>
           </div>
           <nav className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2 pointer-events-auto">
-            <Link href="/" className="text-[#00d4ff] font-bold border-b-2 border-[#00d4ff] font-space tracking-tight transition-all">Dashboard</Link>
-            <Link href="/simulations" className="text-[#64748b] hover:text-[#00d4ff] hover:bg-[#1a2744]/80 transition-all font-space tracking-tight px-3 py-1 rounded">Simulations</Link>
+            <Link href="/" className="text-sm text-[#00d4ff] font-bold border-b-2 border-[#00d4ff] font-space tracking-tight transition-all">Dashboard</Link>
+            <Link href="/simulations" className="text-sm text-[#64748b] hover:text-[#00d4ff] hover:bg-[#1a2744]/80 transition-all font-space tracking-tight px-3 py-1 rounded">Simulations</Link>
           </nav>
           <div className="flex items-center gap-4 pointer-events-auto">
             <Link href="/about" className="hidden sm:flex text-[#64748b] hover:text-[#00d4ff] transition-all material-symbols-outlined p-2 rounded-full cursor-pointer items-center justify-center">
@@ -383,13 +383,13 @@ export default function Dashboard() {
                 const name = window.prompt("Enter circuit name:");
                 if (name) saveCircuit(name);
               }}
-              className="bg-[#0d1f35] text-[#e2e8f0] border border-[#1a3a5c] px-4 py-1.5 rounded-lg font-bold text-xs font-space active:scale-95 duration-150 cursor-pointer hover:bg-[#14243f] transition-all"
+              className="bg-[#0d1f35] text-[#e2e8f0] border border-[#1a3a5c] px-4 py-1.5 rounded-lg font-bold text-sm font-space active:scale-95 duration-150 cursor-pointer hover:bg-[#14243f] transition-all"
             >
               Save
             </button>
             <button
               onClick={handleClearCircuit}
-              className="bg-error text-on-error px-4 py-1.5 rounded-lg font-bold text-xs font-space active:scale-95 duration-150 cursor-pointer hover:bg-error/80 border border-[rgba(255,84,73,0.5)] shadow-[0_0_15px_rgba(255,84,73,0.3)] transition-all"
+              className="bg-error text-on-error px-4 py-1.5 rounded-lg font-bold text-sm font-space active:scale-95 duration-150 cursor-pointer hover:bg-error/80 border border-[rgba(255,84,73,0.5)] shadow-[0_0_15px_rgba(255,84,73,0.3)] transition-all"
             >
               Clear
             </button>
@@ -404,11 +404,6 @@ export default function Dashboard() {
             isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-16 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]'
           }`}
         >
-          <div className="absolute inset-x-0 top-0 h-full flex items-center px-4 pointer-events-none">
-            <div className="text-xs sm:text-sm font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] whitespace-nowrap opacity-80">
-              QUANTUM CIRCUIT SANDBOX
-            </div>
-          </div>
           <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2' : 'top-1/2 -translate-y-1/2'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
             <div className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)] transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
               QUANTUM CIRCUIT SANDBOX
@@ -445,7 +440,7 @@ export default function Dashboard() {
               {/* Left: Probabilities and all */}
               <div className="w-full lg:w-64 xl:w-72 bg-[#0d1f35] rounded-xl border border-[#1a3a5c] p-3 shadow-[0_0_20px_rgba(0,200,255,0.05)] shrink-0 flex flex-col justify-between">
                 <div>
-                  <h3 className="text-[11px] font-bold font-space text-[#00d4ff] mb-3 uppercase tracking-[0.2em] flex items-center gap-2">
+                  <h3 className="text-[12px] font-bold font-space text-[#00d4ff] mb-3 uppercase tracking-[0.2em] flex items-center gap-2">
                     <span className="material-symbols-outlined text-[14px]">analytics</span>
                     Probabilities
                   </h3>
@@ -455,9 +450,9 @@ export default function Dashboard() {
                       const prob = simState.probs[i];
                       return (
                         <div key={stateLabel} className="flex flex-col">
-                          <div className="flex justify-between items-end text-[10px] font-mono mb-1.5">
-                            <span className={`text-[11px] ${prob > 5 ? 'text-primary font-bold' : 'text-[#64748b]/40'}`}>|{stateLabel}⟩</span>
-                            <span className={`text-[11px] ${prob > 5 ? 'text-[#e2e8f0] font-bold shadow-sm' : 'text-on-surface-variant'}`}>{prob.toFixed(1)}%</span>
+                          <div className="flex justify-between items-end text-[11px] font-mono mb-1.5">
+                            <span className={`text-[12px] ${prob > 5 ? 'text-primary font-bold' : 'text-[#64748b]/40'}`}>|{stateLabel}⟩</span>
+                            <span className={`text-[12px] ${prob > 5 ? 'text-[#e2e8f0] font-bold shadow-sm' : 'text-on-surface-variant'}`}>{prob.toFixed(1)}%</span>
                           </div>
                           <div className="h-[3px] w-full bg-[#0d1f35] rounded-full overflow-hidden">
                              <div className="h-full bg-gradient-to-r from-[#7c3aed] to-[#00d4ff] transition-all duration-500 shadow-[0_0_10px_rgba(0,212,255,0.25)]" style={{ width: `${prob.toFixed(1)}%` }}></div>
@@ -471,9 +466,9 @@ export default function Dashboard() {
                 <div className="pt-4 border-t border-white/5 flex flex-col gap-3">
                    <div className="bg-[#00d4ff20] px-3 py-1.5 flex items-center gap-2 rounded border border-[#00d4ff40] self-start shadow-[0_0_10px_rgba(0,0,0,0.5)]">
                      <span className={`w-1.5 h-1.5 rounded-full ${simState.status === 'Processing...' || simState.isExecuting ? 'bg-[#00d4ff] animate-pulse shadow-[0_0_8px_rgba(0,212,255,0.8)]' : 'bg-[#64748b]/40'}`}></span>
-                     <span className="text-[9px] font-mono text-[#00d4ff] uppercase tracking-widest">{simState.status}</span>
+                     <span className="text-[10px] font-mono text-[#00d4ff] uppercase tracking-widest">{simState.status}</span>
                    </div>
-                   <p className="text-[10px] uppercase tracking-wider text-[#64748b] leading-relaxed font-mono">{simState.telemetry}</p>
+                   <p className="text-[11px] uppercase tracking-wider text-[#64748b] leading-relaxed font-mono">{simState.telemetry}</p>
                 </div>
               </div>
 
@@ -483,7 +478,7 @@ export default function Dashboard() {
                   <div className="flex-1 min-w-0">
                     <div className="mb-3 border-b border-white/5 pb-2">
                       <h1 className="text-lg font-bold font-space text-primary tracking-tight mb-1">Circuit Canvas</h1>
-                      <p className="text-xs text-on-surface-variant font-body">Assemble quantum instructions by dragging operators.</p>
+                      <p className="text-sm text-on-surface-variant font-body">Assemble quantum instructions by dragging operators.</p>
                     </div>
 
                     <div className="space-y-3 relative z-10 w-full pt-1 pb-1 overflow-hidden">
