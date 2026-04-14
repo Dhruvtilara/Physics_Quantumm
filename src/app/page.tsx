@@ -205,7 +205,7 @@ export default function Dashboard() {
     lastAction: "Waiting for circuit update",
   });
 
-  const isHeaderExpanded = true;
+  const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
   
   useEffect(() => {
     setIsMounted(true);
@@ -361,7 +361,15 @@ export default function Dashboard() {
 
         {/* TopNavBar */}
         <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 pointer-events-none">
-          <div className="w-48"></div> {/* Spacer for sidebar logo */}
+          <div className="flex items-center gap-2 w-48 pointer-events-auto">
+            <button
+              onMouseEnter={() => setIsHeaderExpanded(true)}
+              onMouseLeave={() => setIsHeaderExpanded(false)}
+              className="text-sm font-bold font-space uppercase tracking-[0.3em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors"
+            >
+              Quantum Circuit Sandbox
+            </button>
+          </div>
           <nav className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2 pointer-events-auto">
             <Link href="/" className="text-[#00d4ff] font-bold border-b-2 border-[#00d4ff] font-space tracking-tight transition-all">Dashboard</Link>
             <Link href="/simulations" className="text-[#64748b] hover:text-[#00d4ff] hover:bg-[#1a2744]/80 transition-all font-space tracking-tight px-3 py-1 rounded">Simulations</Link>
@@ -389,15 +397,20 @@ export default function Dashboard() {
         </div>
 
         {/* Animated Background Header Layer */}
-        <header className="w-full mt-16 sticky top-16 z-[50] h-[20vh] flex items-center px-8 bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c] overflow-hidden">
-          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-4 text-center pointer-events-none">
-            <div className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)]">
+        <header
+          onMouseLeave={() => setIsHeaderExpanded(false)}
+          className={`w-full mt-16 sticky top-16 z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
+            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-16 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-transparent'
+          }`}
+        >
+          <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2' : 'top-1/2 -translate-y-1/2'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
+            <div className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)] transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
               QUANTUM CIRCUIT SANDBOX
             </div>
-            <div className="mt-4 text-[0.7rem] uppercase tracking-[0.45em] text-[#7ddaf4]/80 font-medium font-space">
+            <div className={`mt-4 text-[0.7rem] uppercase tracking-[0.45em] text-[#7ddaf4]/80 font-medium font-space transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
               PHYSICS PROJECT BY
             </div>
-            <div className="mt-2 text-xs uppercase tracking-[0.35em] text-[#c4f4ff]/85 font-bold font-space">
+            <div className={`mt-2 text-xs uppercase tracking-[0.35em] text-[#c4f4ff]/85 font-bold font-space transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
               DHRUV TILARA AND RAHUL JIYANI
             </div>
           </div>
