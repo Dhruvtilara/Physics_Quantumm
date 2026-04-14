@@ -360,18 +360,18 @@ export default function Dashboard() {
       <div className="flex flex-col bg-background text-on-background h-screen selection:bg-primary-container/30">
 
         {/* TopNavBar */}
-        <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 pointer-events-none">
-          <div className="flex items-center gap-2 w-auto min-w-[14rem] pointer-events-auto">
+        <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]">
+          <div className="flex items-center gap-2 w-auto min-w-[14rem]">
             <button className="text-sm sm:text-base font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap">
               QUANTUM CIRCUIT SANDBOX
             </button>
           </div>
-          <nav className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2 pointer-events-auto">
-            <Link href="/" className="text-sm text-[#00d4ff] font-bold border-b-2 border-[#00d4ff] font-space tracking-tight transition-all">Dashboard</Link>
-            <Link href="/simulations" className="text-sm text-[#64748b] hover:text-[#00d4ff] hover:bg-[#1a2744]/80 transition-all font-space tracking-tight px-3 py-1 rounded">Simulations</Link>
+          <nav className="hidden md:flex gap-6 absolute left-1/2 -translate-x-1/2 h-full items-center">
+            <Link href="/" className="text-sm text-[#00d4ff] font-bold h-full flex items-center border-b-2 border-[#00d4ff] font-space tracking-tight transition-all px-2">Dashboard</Link>
+            <Link href="/simulations" className="text-sm text-[#64748b] hover:text-[#00d4ff] h-8 flex items-center hover:bg-[#1a2744]/80 transition-all font-space tracking-tight px-3 rounded">Simulations</Link>
           </nav>
-          <div className="flex items-center gap-4 pointer-events-auto">
-            <Link href="/about" className="hidden sm:flex text-[#64748b] hover:text-[#00d4ff] transition-all material-symbols-outlined p-2 rounded-full cursor-pointer items-center justify-center">
+          <div className="flex items-center gap-4">
+            <Link href="/about" className="hidden sm:flex text-[#64748b] hover:text-[#00d4ff] transition-all material-symbols-outlined p-2 rounded-full cursor-pointer items-center justify-center hover:bg-white/5">
               help
             </Link>
             <button
@@ -392,12 +392,9 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Fixed upper slab under nav */}
-        <header className="fixed top-16 left-0 w-full h-12 z-[50] bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]" />
-
-        <main className="flex h-[calc(100vh-7rem)] mt-28 overflow-hidden relative z-10">
+        <main className="flex h-[calc(100vh-4rem)] mt-16 overflow-hidden relative z-10">
           {/* SideNavBar (Left Gate Library made narrower) */}
-          <aside className="h-full w-48 shrink-0 pt-8 pb-8 px-4 flex flex-col bg-[#0d1f35] z-30 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
+          <aside className="h-full w-48 shrink-0 pt-6 pb-8 px-4 flex flex-col bg-[#0d1f35] z-30 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
             <div className="mb-4 px-2">
               <h2 className="text-[#00d4ff] text-sm font-black font-space uppercase">Core Gates</h2>
             </div>
@@ -410,7 +407,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 flex flex-col pt-2 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto z-20">
+          <div className="flex-1 flex flex-col pt-6 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto z-20">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch flex-1">
