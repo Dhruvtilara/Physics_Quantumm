@@ -401,10 +401,10 @@ export default function Dashboard() {
           onMouseEnter={() => setIsHeaderExpanded(true)}
           onMouseLeave={() => setIsHeaderExpanded(false)}
           className={`w-full sticky top-16 z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
-            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-0 bg-[#050810] shadow-none border-b-0'
+            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-12 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]'
           }`}
         >
-          <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2' : 'top-1/2 -translate-y-1/2'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
+          <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2 opacity-100' : 'top-1/2 -translate-y-1/2 opacity-0'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
             <div className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)] transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
               QUANTUM CIRCUIT SANDBOX
             </div>
@@ -432,7 +432,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-48 flex flex-col pt-2 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto">
+          <div className="flex-1 ml-48 flex flex-col pt-3 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch flex-1">
