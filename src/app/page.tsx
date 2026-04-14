@@ -205,7 +205,7 @@ export default function Dashboard() {
     lastAction: "Waiting for circuit update",
   });
 
-  const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
+  const isHeaderExpanded = true;
   
   useEffect(() => {
     setIsMounted(true);
@@ -389,35 +389,21 @@ export default function Dashboard() {
         </div>
 
         {/* Animated Background Header Layer */}
-        <header
-          onMouseEnter={() => setIsHeaderExpanded(true)}
-          onMouseLeave={() => setIsHeaderExpanded(false)}
-          className={`w-full top-0 sticky z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
-            isHeaderExpanded
-              ? 'h-[30vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]'
-              : 'h-16 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] group/header'
-          }`}
-        >
-          {/* Animated Branding */}
-          <div className={`absolute transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col items-center pointer-events-none ${
-            isHeaderExpanded ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-125' : 'top-1/2 left-8 -translate-y-1/2 scale-90 md:scale-100'
-          }`}>
-            <div className="text-xl font-bold tracking-tighter text-[#dbfcff] font-space leading-none drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">QUANTUM CIRCUIT SANDBOX</div>
-            <div className={`text-[9px] uppercase tracking-[0.3em] font-medium transition-all duration-700 overflow-hidden flex justify-center ${
-              isHeaderExpanded ? 'h-6 mt-4 opacity-100 pointer-events-auto' : 'h-0 mt-0 opacity-0 group-hover/header:h-3 group-hover/header:mt-1 group-hover/header:opacity-100'
-            }`}>
-              <style>{`
-                .neon-glow-always { animation: neon-pulse 1.5s infinite; text-shadow: 0 0 8px #00d4ff, 0 0 20px #00d4ff; color: #00d4ff; }
-                @keyframes neon-pulse { 0%, 100% { text-shadow: 0 0 8px #00d4ff, 0 0 20px #00d4ff; } 50% { text-shadow: 0 0 15px #7c3aed, 0 0 30px #7c3aed; color: #7c3aed; } }
-              `}</style>
-              <div className="neon-glow-always whitespace-nowrap">
-                PHYSICS PROJECT BY DHRUV AND RAHUL
-              </div>
+        <header className="w-full mt-16 sticky top-16 z-[50] h-[20vh] flex items-center px-8 bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c] overflow-hidden">
+          <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex flex-col items-center justify-center px-4 text-center pointer-events-none">
+            <div className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)]">
+              QUANTUM CIRCUIT SANDBOX
+            </div>
+            <div className="mt-4 text-[0.7rem] uppercase tracking-[0.45em] text-[#7ddaf4]/80 font-medium font-space">
+              PHYSICS PROJECT BY
+            </div>
+            <div className="mt-2 text-xs uppercase tracking-[0.35em] text-[#c4f4ff]/85 font-bold font-space">
+              DHRUV TILARA AND RAHUL JIYANI
             </div>
           </div>
         </header>
 
-        <main className={`flex flex-[1_0_auto] transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] h-[calc(100vh-4rem)] ${isHeaderExpanded ? 'opacity-40 blur-[2px] scale-[0.98]' : 'opacity-100 blur-0 scale-100'}`}>
+        <main className="flex flex-1 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-y-auto">
           {/* SideNavBar (Left Gate Library made narrower) */}
           <aside className="h-full w-48 fixed left-0 top-16 pt-8 pb-8 px-4 flex flex-col bg-[#0d1f35] z-40 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
             <div className="mb-4 px-2">
