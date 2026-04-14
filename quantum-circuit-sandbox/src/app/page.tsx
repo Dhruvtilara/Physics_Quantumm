@@ -409,7 +409,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 flex flex-col pt-8 px-6 lg:px-8 gap-3 w-full pr-8 overflow-y-auto z-20">
+          <div className="flex-1 flex flex-col pt-2 px-6 lg:px-8 gap-3 w-full pr-8 overflow-y-auto z-20">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-4 w-full items-stretch flex-1">
