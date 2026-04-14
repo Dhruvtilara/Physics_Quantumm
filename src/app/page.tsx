@@ -399,8 +399,8 @@ export default function Dashboard() {
         {/* Animated Background Header Layer */}
         <header
           onMouseLeave={() => setIsHeaderExpanded(false)}
-          className={`w-full mt-16 sticky top-16 z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
-            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-16 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-transparent'
+          className={`w-full sticky top-16 z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
+            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-0 bg-transparent shadow-none border-b border-transparent'
           }`}
         >
           <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2' : 'top-1/2 -translate-y-1/2'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
