@@ -207,8 +207,6 @@ export default function Dashboard() {
     lastAction: "Waiting for circuit update",
   });
 
-  const [isHeaderExpanded, setIsHeaderExpanded] = useState(false);
-  
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -393,38 +391,12 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Animated Background Header Layer */}
-        <header
-          onMouseEnter={() => setIsHeaderExpanded(true)}
-          onMouseLeave={() => setIsHeaderExpanded(false)}
-          className={`w-full top-0 sticky z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
-            isHeaderExpanded
-              ? 'h-[30vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]'
-              : 'h-16 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] group/header'
-          }`}
-        >
-          {/* Animated Branding */}
-          <div className={`absolute transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col items-center pointer-events-none ${
-            isHeaderExpanded ? 'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 scale-125' : 'top-1/2 left-8 -translate-y-1/2 scale-90 md:scale-100'
-          }`}>
-            <div className="text-xl font-bold tracking-tighter text-[#dbfcff] font-space leading-none drop-shadow-[0_0_8px_rgba(0,240,255,0.5)]">QUANTUM CIRCUIT SANDBOX</div>
-            <div className={`text-[9px] uppercase tracking-[0.3em] font-medium transition-all duration-700 overflow-hidden flex justify-center ${
-              isHeaderExpanded ? 'h-6 mt-4 opacity-100 pointer-events-auto' : 'h-0 mt-0 opacity-0 group-hover/header:h-3 group-hover/header:mt-1 group-hover/header:opacity-100'
-            }`}>
-              <style>{`
-                .neon-glow-always { animation: neon-pulse 1.5s infinite; text-shadow: 0 0 8px #00d4ff, 0 0 20px #00d4ff; color: #00d4ff; }
-                @keyframes neon-pulse { 0%, 100% { text-shadow: 0 0 8px #00d4ff, 0 0 20px #00d4ff; } 50% { text-shadow: 0 0 15px #7c3aed, 0 0 30px #7c3aed; color: #7c3aed; } }
-              `}</style>
-              <div className="neon-glow-always whitespace-nowrap">
-                PHYSICS PROJECT BY DHRUV AND RAHUL
-              </div>
-            </div>
-          </div>
-        </header>
+        {/* Fixed upper slab under nav */}
+        <header className="fixed top-16 left-0 w-full h-12 z-[50] bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]" />
 
-        <main className={`flex flex-[1_0_auto] transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] h-[calc(100vh-4rem)] ${isHeaderExpanded ? 'opacity-100 blur-0 scale-100' : 'opacity-100 blur-0 scale-100'}`}>
+        <main className="flex h-[calc(100vh-7rem)] mt-28 overflow-hidden relative z-10">
           {/* SideNavBar (Left Gate Library made narrower) */}
-          <aside className="h-[calc(100vh-5.5rem)] w-52 fixed left-3 top-[5rem] pt-6 pb-6 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-[120] border border-[rgba(0,180,255,0.15)] rounded-xl shadow-[0_0_20px_rgba(0,200,255,0.05)] max-h-[calc(100vh-7rem)] overflow-y-auto">
+          <aside className="h-full w-52 shrink-0 pt-6 pb-6 px-4 flex flex-col bg-[rgba(10,25,50,0.7)] backdrop-blur-[12px] z-30 border-r border-[rgba(0,180,255,0.15)] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
             <div className="mb-4 px-2">
               <h2 className="text-[#06b6d4] text-sm font-black font-space uppercase tracking-[3px]">Core Gates</h2>
             </div>
@@ -437,7 +409,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-60 flex flex-col pt-3 px-6 lg:px-8 gap-3 w-full pr-8 overflow-y-auto">
+          <div className="flex-1 flex flex-col pt-8 px-6 lg:px-8 gap-3 w-full pr-8 overflow-y-auto z-20">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-4 w-full items-stretch flex-1">

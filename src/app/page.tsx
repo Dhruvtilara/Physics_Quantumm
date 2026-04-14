@@ -362,11 +362,7 @@ export default function Dashboard() {
         {/* TopNavBar */}
         <div className="fixed top-0 left-0 w-full h-16 z-[60] flex justify-between items-center px-8 pointer-events-none">
           <div className="flex items-center gap-2 w-auto min-w-[14rem] pointer-events-auto">
-            <button
-              onMouseEnter={() => setIsHeaderExpanded(true)}
-              onMouseLeave={() => setIsHeaderExpanded(false)}
-              className="text-sm sm:text-base font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap"
-            >
+            <button className="text-sm sm:text-base font-bold font-space uppercase tracking-[0.35em] text-[#00d4ff] hover:text-[#7ddaf4] transition-colors whitespace-nowrap">
               QUANTUM CIRCUIT SANDBOX
             </button>
           </div>
@@ -396,30 +392,12 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Animated Background Header Layer */}
-        <header
-          onMouseEnter={() => setIsHeaderExpanded(true)}
-          onMouseLeave={() => setIsHeaderExpanded(false)}
-          className={`w-full sticky top-16 z-[50] flex items-center px-8 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-hidden ${
-            isHeaderExpanded ? 'h-[20vh] bg-[#050810] shadow-[0_20px_80px_rgba(0,0,0,0.8)] border-b border-[#1a3a5c]' : 'h-12 bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]'
-          }`}
-        >
-          <div className={`absolute inset-x-0 ${isHeaderExpanded ? 'top-1/2 -translate-y-1/2 opacity-100' : 'top-1/2 -translate-y-1/2 opacity-0'} flex flex-col items-center justify-center px-4 text-center transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] pointer-events-none`}>
-            <div className={`text-3xl md:text-4xl lg:text-5xl font-bold tracking-[0.18em] text-[#dbfcff] font-space leading-tight drop-shadow-[0_0_12px_rgba(0,240,255,0.45)] transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
-              QUANTUM CIRCUIT SANDBOX
-            </div>
-            <div className={`mt-4 text-[0.7rem] uppercase tracking-[0.45em] text-[#7ddaf4]/80 font-medium font-space transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
-              PHYSICS PROJECT BY
-            </div>
-            <div className={`mt-2 text-xs uppercase tracking-[0.35em] text-[#c4f4ff]/85 font-bold font-space transition-opacity duration-500 ${isHeaderExpanded ? 'opacity-100' : 'opacity-0'}`}>
-              DHRUV TILARA AND RAHUL JIYANI
-            </div>
-          </div>
-        </header>
+        {/* Fixed upper slab under nav */}
+        <header className="fixed top-16 left-0 w-full h-12 z-[50] bg-[#050810] shadow-[0_0_24px_rgba(0,212,255,0.08)] border-b border-[#1a3a5c]" />
 
-        <main className="flex flex-1 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] overflow-y-auto">
+        <main className="flex h-[calc(100vh-7rem)] mt-28 overflow-hidden relative z-10">
           {/* SideNavBar (Left Gate Library made narrower) */}
-          <aside className="h-full w-48 fixed left-0 top-16 pt-8 pb-8 px-4 flex flex-col bg-[#0d1f35] z-40 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
+          <aside className="h-full w-48 shrink-0 pt-8 pb-8 px-4 flex flex-col bg-[#0d1f35] z-30 border-r border-[#1a3a5c] shadow-[0_0_20px_rgba(0,200,255,0.05)] overflow-y-auto">
             <div className="mb-4 px-2">
               <h2 className="text-[#00d4ff] text-sm font-black font-space uppercase">Core Gates</h2>
             </div>
@@ -432,7 +410,7 @@ export default function Dashboard() {
           </aside>
 
           {/* Central Content Area (Allowing Scrolling) */}
-          <div className="flex-1 ml-48 flex flex-col pt-3 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto">
+          <div className="flex-1 flex flex-col pt-8 px-6 lg:px-8 gap-4 w-full pr-8 overflow-y-auto z-20">
 
             {/* Top Row: Probabilities & Telemetry (Left) + Canvas (Right) */}
             <div className="flex flex-col lg:flex-row gap-6 w-full items-stretch flex-1">
